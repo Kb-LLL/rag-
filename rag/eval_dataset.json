@@ -1,0 +1,52 @@
+{
+  "documents": [
+    {
+      "title": "星云手机产品手册",
+      "content": "# M200\nM200 手机电池容量为 8000mAh，官方零售价为 2999 元，支持 65W 有线快充。机身重量为 198 克，屏幕尺寸为 6.7 英寸，防护等级为 IP68。\n\n# M100\nM100 手机电池容量为 5000mAh，官方零售价为 1999 元，支持 33W 有线快充。"
+    },
+    {
+      "title": "云帆员工制度",
+      "content": "# 工作时间\n标准工作时间为周一至周五 9:00 至 18:00。\n\n# 年假\n入职满一年可享受 7 天带薪年假，满三年为 10 天。\n\n# 报销\n差旅报销必须在行程结束后 15 个自然日内提交，单张发票超过 5000 元需要部门负责人审批。"
+    },
+    {
+      "title": "青川物流服务说明",
+      "content": "# 时效\n同城标准件承诺次日 18:00 前送达，跨省标准件预计 3 至 5 个工作日。\n\n# 理赔\n普通包裹最高赔付 1000 元，保价包裹按照声明价值赔付。\n\n# 客服\n客服电话为 400-860-2026，人工服务时间为每天 8:00 至 22:00。"
+    },
+    {
+      "title": "海岚数据接口规范",
+      "content": "# 认证\nAPI 使用 Bearer Token 认证，令牌默认有效期为 2 小时。\n\n# 限流\n每个账号默认每分钟最多 120 次请求，超过限制返回 HTTP 429。\n\n# 导出\n异步导出任务完成后，下载链接有效期为 24 小时。单次导出最多 100000 条记录。"
+    }
+  ],
+  "cases": [
+    {"id": "p01", "question": "M200 的电池容量是多少？", "expected_document": "星云手机产品手册", "expected_terms": ["8000mAh"], "should_answer": true},
+    {"id": "p02", "question": "M200 售价多少元？", "expected_document": "星云手机产品手册", "expected_terms": ["2999"], "should_answer": true},
+    {"id": "p03", "question": "M200 支持多少瓦快充？", "expected_document": "星云手机产品手册", "expected_terms": ["65W"], "should_answer": true},
+    {"id": "p04", "question": "M200 的机身重量是多少？", "expected_document": "星云手机产品手册", "expected_terms": ["198"], "should_answer": true},
+    {"id": "p05", "question": "M200 屏幕多大？", "expected_document": "星云手机产品手册", "expected_terms": ["6.7"], "should_answer": true},
+    {"id": "p06", "question": "M200 的防护等级是什么？", "expected_document": "星云手机产品手册", "expected_terms": ["IP68"], "should_answer": true},
+    {"id": "p07", "question": "M100 电池容量是多少？", "expected_document": "星云手机产品手册", "expected_terms": ["5000mAh"], "should_answer": true},
+    {"id": "p08", "question": "M100 的官方零售价是多少？", "expected_document": "星云手机产品手册", "expected_terms": ["1999"], "should_answer": true},
+    {"id": "h01", "question": "公司的标准工作时间是什么？", "expected_document": "云帆员工制度", "expected_terms": ["9:00", "18:00"], "should_answer": true},
+    {"id": "h02", "question": "入职满一年有几天年假？", "expected_document": "云帆员工制度", "expected_terms": ["7"], "should_answer": true},
+    {"id": "h03", "question": "入职满三年有几天年假？", "expected_document": "云帆员工制度", "expected_terms": ["10"], "should_answer": true},
+    {"id": "h04", "question": "差旅结束后多久内要报销？", "expected_document": "云帆员工制度", "expected_terms": ["15"], "should_answer": true},
+    {"id": "h05", "question": "多大金额的单张发票需要负责人审批？", "expected_document": "云帆员工制度", "expected_terms": ["5000"], "should_answer": true},
+    {"id": "h06", "question": "员工周末是否属于标准工作日？", "expected_document": "云帆员工制度", "expected_terms": ["周一至周五"], "should_answer": true},
+    {"id": "l01", "question": "同城标准件什么时候送达？", "expected_document": "青川物流服务说明", "expected_terms": ["次日", "18:00"], "should_answer": true},
+    {"id": "l02", "question": "跨省标准件预计需要多久？", "expected_document": "青川物流服务说明", "expected_terms": ["3", "5"], "should_answer": true},
+    {"id": "l03", "question": "普通包裹最高赔付多少钱？", "expected_document": "青川物流服务说明", "expected_terms": ["1000"], "should_answer": true},
+    {"id": "l04", "question": "保价包裹按什么标准赔付？", "expected_document": "青川物流服务说明", "expected_terms": ["声明价值"], "should_answer": true},
+    {"id": "l05", "question": "物流客服电话是多少？", "expected_document": "青川物流服务说明", "expected_terms": ["400-860-2026"], "should_answer": true},
+    {"id": "l06", "question": "人工客服每天几点结束？", "expected_document": "青川物流服务说明", "expected_terms": ["22:00"], "should_answer": true},
+    {"id": "a01", "question": "API 用什么认证方式？", "expected_document": "海岚数据接口规范", "expected_terms": ["Bearer Token"], "should_answer": true},
+    {"id": "a02", "question": "访问令牌默认有效多久？", "expected_document": "海岚数据接口规范", "expected_terms": ["2"], "should_answer": true},
+    {"id": "a03", "question": "每分钟默认允许多少次请求？", "expected_document": "海岚数据接口规范", "expected_terms": ["120"], "should_answer": true},
+    {"id": "a04", "question": "触发限流时返回什么状态码？", "expected_document": "海岚数据接口规范", "expected_terms": ["429"], "should_answer": true},
+    {"id": "a05", "question": "导出下载链接有效多久？", "expected_document": "海岚数据接口规范", "expected_terms": ["24"], "should_answer": true},
+    {"id": "a06", "question": "单次最多能导出多少条记录？", "expected_document": "海岚数据接口规范", "expected_terms": ["100000"], "should_answer": true},
+    {"id": "n01", "question": "M200 有哪些配色？", "expected_document": null, "expected_terms": [], "should_answer": false},
+    {"id": "n02", "question": "公司是否提供免费午餐？", "expected_document": null, "expected_terms": [], "should_answer": false},
+    {"id": "n03", "question": "物流是否支持冷链运输？", "expected_document": null, "expected_terms": [], "should_answer": false},
+    {"id": "n04", "question": "API 是否支持 GraphQL？", "expected_document": null, "expected_terms": [], "should_answer": false}
+  ]
+}

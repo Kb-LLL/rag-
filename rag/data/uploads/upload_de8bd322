@@ -1,0 +1,113 @@
+# 项目运行指南
+
+## 环境要求
+
+- Python 3.10+
+- Node.js 18+
+- MySQL 8.0+（端口 3307）
+
+## 1. 安装 Python 依赖
+
+```bash
+pip install -r requirements.txt
+```
+
+## 2. 安装前端依赖
+
+```bash
+cd frontend
+npm install
+```
+
+## 3. 初始化数据库
+
+确保 MySQL 服务运行在 `localhost:3307`，账号 `root`，密码 `1234`。
+
+数据库和表会在首次启动后端时自动创建，也可手动执行：
+
+```bash
+python -c "
+import pymysql
+conn = pymysql.connect(host='localhost', user='root', password='1234', port=3307, charset='utf8mb4')
+cur = conn.cursor()
+cur.execute('CREATE DATABASE IF NOT EXISTS ai_chat DEFAULT CHARACTER SET utf8mb4')
+cur.execute('USE ai_chat')
+cur.execute('''CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4''')
+cur.execute('''CREATE TABLE IF NOT EXISTS conversations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(200) DEFAULT ''新对话'',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4''')
+cur.execute('''CREATE TABLE IF NOT EXISTS messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conversation_id INT NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    content LONGTEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4''')
+conn.commit()
+conn.close()
+print('数据库初始化完成')
+"
+```
+
+## 4. 启动服务
+
+需要同时启动两个终端：
+
+### 终端 1 — 启动后端（FastAPI）
+
+```bash
+cd f:\demo1
+python app.py
+```
+
+后端运行在：http://localhost:5000
+
+### 终端 2 — 启动前端（Vue 3 + Vite）
+
+```bash
+cd f:\demo1\frontend
+npm run dev
+```
+
+前端运行在：http://localhost:3000（如 3000 被占用会自动切换到 3001）
+
+## 5. 访问项目
+
+打开浏览器访问 **http://localhost:3000**（或终端提示的端口）
+
+## 项目结构
+
+```
+f:\demo1\
+├── app.py                  # FastAPI 后端（JWT + MySQL + LangChain）
+├── key.txt                 # API 密钥配置
+├── requirements.txt        # Python 依赖
+├── frontend/               # Vue 3 + Vite 前端
+│   ├── package.json
+│   ├── vite.config.js      # Vite 配置（proxy /api → :5000）
+│   └── src/
+│       ├── main.js
+│       ├── App.vue
+│       ├── api/index.js    # Axios 封装
+│       ├── router/index.js # Vue Router
+│       ├── stores/auth.js  # Pinia 状态管理
+│       ├── assets/main.css
+│       └── views/
+│           ├── LoginView.vue
+│           ├── RegisterView.vue
+│           └── ChatView.vue
+└── RUN.md                  # 本文件
+```
