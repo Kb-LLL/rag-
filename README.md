@@ -51,7 +51,8 @@ demo1/
     |-- minio_client.py       # MinIO 上传、下载、删除
     `-- retriever.py          # 混合检索、RRF 融合、重排
 ```
-
+rag文件夹里面还有models本地模型的文件夹
+这个文件夹可以到Release里的本地项目模型下载来放进去
 ## 环境要求
 
 | 环境           | 建议版本                         |
